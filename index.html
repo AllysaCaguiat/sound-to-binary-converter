@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1324">
+  <title>Sound to Binary | WaveLab</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <main class="container">
+    <header class="site-header">
+      <div class="brand"><span class="brand-icon" aria-hidden="true">≋</span>
+        <span>WAVELAB <small> / MULTIMEDIA</small></span></div>
+      <div class="tag">SOUND → DATA</div>
+    </header>
+
+    <section class="hero">
+      <div class="eyebrow">DIGITAL SOUND EXPERIMENT</div>
+      <h1>Sound to <em>Binary.</em></h1>
+      <p>See how a continuous sound wave becomes individual samples, quantized levels, and binary digits.</p>
+      <div class="student">NAME:
+        <strong id="student-name">ALLYSA SHARISE A. CAGUI-AT</strong>
+        <span class="dot">
+          •</span> <span id="student-section">SECTION: 37</span></div>
+    </section>
+
+    <section class="panel form-panel" aria-labelledby="input-title">
+      <div class="section-title"><div><span class="eyebrow">01 / INPUT</span>
+        <h2 id="input-title">Configure your wave</h2>
+      </div><span class="subtle">One full wave cycle</span></div>
+      <form id="wave-form" novalidate>
+        <div class="input-grid">
+
+          <label>Frequency <span>(Hz)</span>
+            <input id="frequency" name="frequency" type="number" min="0.01" step="any" value="440" required>
+            <small>Higher frequency = higher pitch</small></label>
+          <label>Amplitude <span>(0–1)</span>
+            <input id="amplitude" name="amplitude" type="number" min="0" max="1" step="any" value="0.8" required>
+            <small>Controls wave height</small></label>
+          <label>Number of samples <span>(2–64)</span>
+            <input id="samples" name="samples" type="number" min="2" max="64" step="1" value="8" required>
+            <small>Measurements per cycle</small></label>
+          <label>Bits per sample <span>(1–8)</span>
+            <input id="bits" name="bits" type="number" min="1" max="8" step="1" value="3" required>
+            <small>Number of binary digits</small></label>
+        </div>
+
+        <div id="warning" class="warning" role="alert" hidden></div>
+        <div class="form-actions"><button type="submit" class="primary">Convert to Binary <span aria-hidden="true">↗</span>
+        </button><button type="button" id="play" class="secondary">▶ Play Tone (1s)</button></div>
+      </form>
+    </section>
+
+    <section id="results" class="result-content" aria-live="polite" hidden>
+      <section class="panel"><div class="section-title"><div>
+        <span class="eyebrow">02 / VISUALIZE</span><h2>Wave preview</h2>
+      </div><span class="subtle">Sine wave and sample points</span></div><div class="canvas-wrap">
+        <canvas id="wave-canvas" width="900" height="255" role="img" aria-label="A sine wave with sampling positions marked"></canvas></div>
+        <p class="hint">Dots show where the wave is measured. The preview illustrates the calculations below.</p></section>
+
+      <section class="facts-grid" id="wave-facts"><div class="fact"><span>Amplitude</span>
+        <strong id="fact-amplitude">—</strong></div><div class="fact"><span>Frequency</span>
+          <strong id="fact-frequency">—</strong></div><div class="fact"><span>Period</span>
+            <strong id="fact-period">—</strong></div><div class="fact"><span>Wavelength</span>
+              <strong id="fact-wavelength">—</strong></div></section>
+
+      <section class="panel"><div class="section-title"><div>
+        <span class="eyebrow">03 / SAMPLE & QUANTIZE</span><h2>Sample breakdown</h2></div>
+        <span id="sample-count" class="subtle"></span></div>
+        <div class="table-scroll"><table><thead><tr><th>Sample #</th><th>Time (ms)</th>
+          <th>Amplitude</th><th>Level</th><th>Binary</th></tr></thead>
+          <tbody id="samples-body"></tbody></table></div></section>
+
+      <section class="panel binary-panel"><div class="section-title"><div>
+        <span class="eyebrow">04 / ENCODE</span>
+        <h2>Binary result</h2></div>
+        <button class="text-button" type="button" id="copy-binary">Copy result</button></div>
+        <div class="binary-line" id="binary-output"></div>
+        <div class="total-bits">Total bits <strong id="total-bits">—</strong></div></section>
+    </section>
+
+    <section class="panel test-panel">
+      <div class="section-title"><div>
+        <span class="eyebrow">05 / VERIFICATION</span>
+      <h2>Test Results</h2></div>
+      <span class="subtle">
+        Calculated with the same converter</span></div>
+      <p class="section-description">
+        The required A, B, and C tests are computed
+         using the exact same conversion function as the form.</p>
+      <div class="table-scroll"><table class="test-table"><thead>
+        <tr><th>Test</th>
+        <th>Frequency</th>
+        <th>Amplitude</th>
+        <th>Samples</th>
+        <th>Bits</th>
+        <th>Period</th>
+        <th>Wavelength</th>
+        <th>Total bits</th>
+        <th>Binary result</th>
+      </tr></thead>
+        <tbody id="tests-body"></tbody></table></div></section>
+
+    <section class="panel explain-panel"><div class="section-title"><div>
+      <span class="eyebrow">06 / REFLECTION</span>
+      <h2>Explain It</h2></div></div><div class="qa">
+        
+        <h3>
+      1. In your own words, how does your app change a sound wave into binary? 
+      Name the three steps.
+    </h3><p>
+      My app converts a sound wave into binary through 
+      three steps: sampling, quantization, and binary encoding. 
+      It measures the wave at different points, rounds the values to levels,
+       and converts them into binary numbers.
+      </p></div><div class="qa">
+        
+        <h3>
+        2. Does 2-bit or 6-bit encoding show more detail in Test A?
+      </h3><p>
+        6 bits gives more detail because it has 64 levels, while 2 bits only has 4 levels.
+         More levels allow the app to represent the wave's amplitude more accurately.
+      </p></div><div class="qa">
+        
+        <h3>
+        3.Which test has the longest wavelength? 
+        How is wavelength connected to frequency?
+      </h3><p>
+        Test B has the longest wavelength because it has the lowest frequency of 200 Hz. 
+        As frequency increases, wavelength decreases.
+      </p></div><div class="qa">
+        
+        <h3>
+        4. What was the hardest stage to build, and how did you fix it?
+      </h3><p class="personal-note">
+        The hardest part was converting the wave's amplitude
+         into binary because the calculations needed to be accurate.
+         I solved it by checking the formulas, testing different inputs, 
+         and comparing the results with the given example.
+        </p></div></section>
+
+    <footer>WAVELAB <span>Sound-to-Binary Converter 
+      · Multimedia Activity</span></footer>
+  </main>
+</body>
+</html>
